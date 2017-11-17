@@ -3,12 +3,19 @@
     class BankAccount
     {
         public delegate void MinusHandler(string msg);
+        public delegate void ZeroHandler(string msg);
 
-        private MinusHandler _handlers;
+        private MinusHandler _minusHandler;
+        private ZeroHandler _zeroHandler;
 
-        public void RegisterHandler(MinusHandler methodToCall)
+        public void RegisterMinusHandler(MinusHandler methodToCall)
         {
-            _handlers += methodToCall;
+            _minusHandler += methodToCall;
+        }
+
+        public void RegisterZeroHandler(ZeroHandler methodToCall)
+        {
+            _zeroHandler += methodToCall;
         }
         public int Rest { get; private set; }
 
@@ -19,16 +26,24 @@
 
         public void GetMoney(int s)
         {
+            if (Rest - s == 0)
+            {
+                if (_zeroHandler != null)
+                {
+                    _zeroHandler($"zero account: the rest = {Rest}; last operation was: -{s}");
+                }
+            }
+
             if (Rest - s < 0)
             {
-                if (_handlers != null)
+                if (_minusHandler != null)
                 {
-                    _handlers($"minus account: the rest = {Rest}; try to get: {s}");
+                    _minusHandler($"minus account: the rest = {Rest}; try to get: {s}");
                 }
                 return;
             }
 
-            Rest = -s;
+            Rest -= s;
         }
     }
 }

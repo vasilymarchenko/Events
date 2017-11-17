@@ -7,22 +7,37 @@ namespace Events
         static void Main(string[] args)
         {
             BankAccount account = new BankAccount(200);
-            account.RegisterHandler(ShowMessage1);
-            account.RegisterHandler(ShowMessage2);
 
-            account.GetMoney(250);
+            account.RegisterMinusHandler(ShowMinusMessage1);
+            account.RegisterMinusHandler(ShowMinusMessage2);
+
+            account.RegisterZeroHandler(ShowZeroMessage1);
+            account.RegisterZeroHandler(ShowZeroMessage2);
+
+            account.GetMoney(200);
+            account.GetMoney(128);
 
             Console.ReadLine();
         }
 
-        public static void ShowMessage1(string text)
+        public static void ShowMinusMessage1(string text)
         {
-            Console.WriteLine($"ShowMessage1: {text}");
+            Console.WriteLine($"ShowMinusMessage1: {text}");
         }
 
-        public static void ShowMessage2(string text)
+        public static void ShowMinusMessage2(string text)
         {
-            Console.WriteLine($"ShowMessage2: {text}");
+            Console.WriteLine($"ShowMinusMessage2: {text}");
+        }
+
+        public static void ShowZeroMessage1(string text)
+        {
+            Console.WriteLine($"ShowMinusMessage1: {text}");
+        }
+
+        public static void ShowZeroMessage2(string text)
+        {
+            Console.WriteLine($"ShowMinusMessage2: {text}");
         }
     }
 }
