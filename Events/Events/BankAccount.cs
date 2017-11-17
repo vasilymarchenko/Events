@@ -5,18 +5,9 @@
         public delegate void MinusHandler(string msg);
         public delegate void ZeroHandler(string msg);
 
-        private MinusHandler _minusHandler;
-        private ZeroHandler _zeroHandler;
-
-        public void RegisterMinusHandler(MinusHandler methodToCall)
-        {
-            _minusHandler += methodToCall;
-        }
-
-        public void RegisterZeroHandler(ZeroHandler methodToCall)
-        {
-            _zeroHandler += methodToCall;
-        }
+        public event MinusHandler MinusEvent;
+        public event ZeroHandler ZeroEvent;
+        
         public int Rest { get; private set; }
 
         public BankAccount(int startBalance)
@@ -28,17 +19,17 @@
         {
             if (Rest - s == 0)
             {
-                if (_zeroHandler != null)
+                if (ZeroEvent != null)
                 {
-                    _zeroHandler($"zero account: the rest = {Rest}; last operation was: -{s}");
+                    ZeroEvent($"zero account: the rest = {Rest}; last operation was: -{s}");
                 }
             }
 
             if (Rest - s < 0)
             {
-                if (_minusHandler != null)
+                if (MinusEvent != null)
                 {
-                    _minusHandler($"minus account: the rest = {Rest}; try to get: {s}");
+                    MinusEvent($"minus account: the rest = {Rest}; try to get: {s}");
                 }
                 return;
             }
