@@ -1,12 +1,11 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
     class BankAccount
     {
-        public delegate void MinusHandler(object sender, BankEventArgs bankEventArgs);
-        public delegate void ZeroHandler(object sender, BankEventArgs bankEventArgs);
-
-        public event MinusHandler MinusEvent;
-        public event ZeroHandler ZeroEvent;
+        public event EventHandler<BankEventArgs> MinusEvent;
+        public event EventHandler<BankEventArgs> ZeroEvent;
         
         public int Rest { get; private set; }
 
