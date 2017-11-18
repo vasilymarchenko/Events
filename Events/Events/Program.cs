@@ -10,7 +10,6 @@ namespace Events
 
             account.MinusEvent += ShowMinusMessage1;
             account.MinusEvent += ShowMinusMessage2;
-            //account.MinusEvent += AccountOnMinusEvent;
 
             account.ZeroEvent += ShowZeroMessage1;
             account.ZeroEvent += ShowZeroMessage2;
@@ -21,29 +20,24 @@ namespace Events
             Console.ReadLine();
         }
 
-        //private static void AccountOnMinusEvent(string msg)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public static void ShowMinusMessage1(string text)
+        public static void ShowMinusMessage1(object sender, BankEventArgs args)
         {
-            Console.WriteLine($"ShowMinusMessage1: {text}");
+            Console.WriteLine($"ShowMinusMessage1: {args.Message}, Rest={args.Rest}, OperationSum={args.OperationSum}");
         }
 
-        public static void ShowMinusMessage2(string text)
+        public static void ShowMinusMessage2(object sender, BankEventArgs args)
         {
-            Console.WriteLine($"ShowMinusMessage2: {text}");
+            Console.WriteLine($"ShowMinusMessage1: {args.Message}, Rest={args.Rest}, OperationSum={args.OperationSum}");
         }
 
-        public static void ShowZeroMessage1(string text)
+        public static void ShowZeroMessage1(object sender, BankEventArgs args)
         {
-            Console.WriteLine($"ShowMinusMessage1: {text}");
+            Console.WriteLine($"ShowZeroMessage1: {args.Message}, Rest={args.Rest}, OperationSum={args.OperationSum}");
         }
 
-        public static void ShowZeroMessage2(string text)
+        public static void ShowZeroMessage2(object sender, BankEventArgs args)
         {
-            Console.WriteLine($"ShowMinusMessage2: {text}");
+            Console.WriteLine($"ShowZeroMessage1: {args.Message}, Rest={args.Rest}, OperationSum={args.OperationSum}");
         }
     }
 }

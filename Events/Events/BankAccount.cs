@@ -2,8 +2,8 @@
 {
     class BankAccount
     {
-        public delegate void MinusHandler(string msg);
-        public delegate void ZeroHandler(string msg);
+        public delegate void MinusHandler(object sender, BankEventArgs bankEventArgs);
+        public delegate void ZeroHandler(object sender, BankEventArgs bankEventArgs);
 
         public event MinusHandler MinusEvent;
         public event ZeroHandler ZeroEvent;
@@ -21,7 +21,8 @@
             {
                 if (ZeroEvent != null)
                 {
-                    ZeroEvent($"zero account: the rest = {Rest}; last operation was: -{s}");
+                    BankEventArgs args = new BankEventArgs("Zero account", Rest, s);
+                    ZeroEvent(this, args);
                 }
             }
 
@@ -29,7 +30,8 @@
             {
                 if (MinusEvent != null)
                 {
-                    MinusEvent($"minus account: the rest = {Rest}; try to get: {s}");
+                    BankEventArgs args = new BankEventArgs("Minus account", Rest, s);
+                    MinusEvent(this, args);
                 }
                 return;
             }
