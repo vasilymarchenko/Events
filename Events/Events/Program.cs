@@ -26,8 +26,12 @@ namespace Events
                 Console.WriteLine($"ShowZeroMessage1: {eventArgs.Message}, Rest={eventArgs.Rest}, OperationSum={eventArgs.OperationSum}");
             };
 
-            account.GetMoney(200);
-            account.GetMoney(128);
+            //account.GetMoney(200);
+            //account.GetMoney(128);
+
+            Type t = account.GetType();
+
+            Type tt = typeof(BankAccount);
 
             Console.ReadLine();
         }
